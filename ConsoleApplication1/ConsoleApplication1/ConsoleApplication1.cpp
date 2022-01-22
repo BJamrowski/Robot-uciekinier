@@ -158,8 +158,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	*/
 
-	position[0] = 9;	//x
-	position[1] = 8;	//y
+	position[0] = 4;
+	position[1] = 2;
 	position[2] = 1;
 	position[3] = 1;
 
@@ -179,7 +179,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// wyswietlenie wspó³rzêdnych 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		switch (i)
 		{
@@ -195,6 +195,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		case 3:
 			cout<<"Enemy position X: "<<position[i]<<endl;
 			break;
+		case 4:
+			cout << "Direction: " << zwrot << endl;
 		default:
 			break;
 		}
