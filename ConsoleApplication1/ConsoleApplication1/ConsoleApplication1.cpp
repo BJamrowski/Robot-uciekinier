@@ -90,7 +90,7 @@ void moveToSafeArea(direction zwrot, int position[], int localization[][10]) {
 		case RIGHT:
 			for (int i = 5; i > 0; i--)
 			{
-				if (localization[position[0] - 1][position[1] + 4] == 1) {
+				if (localization[position[0] - 1][position[1] + 4] == 1 || localization[position[0] - 1][position[1]] == 5) {
 					localization[position[0] - 1][position[1]] = 9;
 					localization[position[0] - 1][position[1] - 1] = -1;
 					position[1] = position[1] + 1;
