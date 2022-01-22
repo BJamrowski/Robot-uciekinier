@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <iostream>
 
+// komentarz na test branch
 using namespace std;
 enum direction{UP, RIGHT, DOWN, LEFT};
 
@@ -26,6 +27,8 @@ void findMe(){		// NIEU¯YWANA
 	}
 }
 
+// sprawdza czy przed nami nie ma przeciwnika 
+// TODO dodac reakcje na znalezienie przeciwnika
 void changeSurroundings(direction zwrot, int position[], int localization[][10]) {
 	int safe = 5;
 	switch (zwrot)
@@ -73,6 +76,16 @@ void moveToSafeArea(direction zwrot, int position[], int localization[][10]) {
 	switch (zwrot)
 	{
 		case UP:
+			for (int i = 5; i > 0; i--)
+			{
+				if (localization[position[0] - 4][position[1] - 1] == 1 || localization[position[0] - 2][position[1] - 1] == 5) {
+					localization[position[0] - 2][position[1] - 1] = 9;
+					localization[position[0] - 1][position[1] - 1] = -1;
+					position[0] = position[0] - 1;
+					changeSurroundings(zwrot, position, localization);
+				}
+				return;
+			}
 			break;
 		case RIGHT:
 			for (int i = 5; i > 0; i--)
@@ -89,7 +102,7 @@ void moveToSafeArea(direction zwrot, int position[], int localization[][10]) {
 		case DOWN:
 			for (int i = 5; i > 0; i--)
 			{
-				if (localization[position[0] + 4][position[1] - 1] == 1) {
+				if (localization[position[0] + 4][position[1] - 1] == 1 || localization[position[0]][position[1] - 1] == 5) {
 					localization[position[0]][position[1] - 1] = 9;
 					localization[position[0] - 1][position[1] - 1] = -1;
 					position[0] = position[0] + 1;
@@ -98,7 +111,18 @@ void moveToSafeArea(direction zwrot, int position[], int localization[][10]) {
 				return;
 			}
 			break;
-		case LEFT:
+		case LEFT: // work in progress
+			for (int i = 5; i > 0; i--)
+			{
+				if (localization[position[0] - 1][position[1] - 6] == 1 || localization[position[0] - 1][position[1] - 2] == 5) {
+					localization[position[0] - 1][position[1] - 2] = 9;
+					localization[position[0] - 1][position[1] - 1] = -1;
+					position[1] = position[1] - 1;
+					changeSurroundings(zwrot, position, localization);
+				}
+				return;
+			}
+			break;
 			break;
 		default:
 			break;
@@ -107,7 +131,7 @@ void moveToSafeArea(direction zwrot, int position[], int localization[][10]) {
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	direction zwrot = RIGHT;
+	direction zwrot = LEFT;
 	int localization[10][10];
 		//inicjalizacja tablicy mapy
 	for (int i = 0; i < 10; i++)
@@ -121,15 +145,23 @@ int _tmain(int argc, _TCHAR* argv[])
 	int position[4];
 	
 	// losowanie po³o¿enie
+	// pozniej zmienic na lokalizacje w terenie
+	/*
 	for (int i = 0; i < 2; i++)
 	{
-		position[i] = (rand() %10) + 1;
-		position[i+2] = (rand() %10) + 1;
+		position[i] = (rand() % 10) + 1;
+		position[i + 2] = (rand() %10) + 1;
 		
 		if(position[i] == position[i+2]){
 			position[i] = rand() %10;
 		}
 	}
+	*/
+
+	position[0] = 9;	//x
+	position[1] = 8;	//y
+	position[2] = 1;
+	position[3] = 1;
 
 	// naniesienie robota i przeciwnika na mape
 	localization[position[0]-1][position[1]-1] = 9;
